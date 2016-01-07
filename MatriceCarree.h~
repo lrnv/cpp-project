@@ -1,0 +1,34 @@
+#ifndef MATRICECARREE_HPP
+#define MATRICECARREE_HPP
+#include <iostream>
+#include <stdlib.h>
+
+#include "Matrice.h"
+
+class MatriceCarree:public Matrice
+{
+    public:
+        
+        // Redefinition des constructeurs :
+            MatriceCarree(); // constructeur vide
+            MatriceCarree( int const & n); // constructeur qui alloue et remplis avec l'identitée
+            MatriceCarree( int const & n, double const & x); // constructeur qui remplis de x.
+            virtual ~MatriceCarree();            
+
+        // Determinant, Inversibilitée, inversion :
+            double determinant() const;
+            bool inversible() const;
+            matriceCarree inverse() const;
+
+/*
+        // méthodes supplmentaires : symetrique, positive.
+        bool symetrique() const;
+        bool positive() const; 
+*/
+
+protected:
+
+
+
+};
+#endif

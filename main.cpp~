@@ -1,0 +1,84 @@
+#include <iostream>
+#include <stdlib.h>
+#include "Matrice.h"
+#include "MatriceCarree.h"
+
+int main() 
+{
+    // On fera ici attention a fait que dans TOUTES les manipulations sur les matrices, elles sont indexées de 0 a n-1 et m-1,
+    //donc dans les cas ou l'on demande des lignes ou des colones a l'utilisateur ( je pense a un choix de sous-matrice par exemple ),
+    //il faudra rectifier cela sinon la sous-matrice affichée sera décalée vers en bas a droite par rapport a ce que demande l'USER.
+
+
+    //creation d'une 1ere matrice..
+    int m,n;
+    std::cout << "Vous allez creer une matrice, commencez par renseigner ses dimentions.\n Nombre de lignes ? ";
+    std::cin >> m;
+    std::cout << " \n Nombre de colones ? ";
+    std::cin >> n;
+    Matrice mat(m,n,0);
+    mat.affecter();
+    mat.afficher();
+
+
+   //création d'une 2eme matrice
+    std::cout << "Vous allez creer une matrice, commencez par renseigner ses dimentions.\n Nombre de lignes ? ";
+    std::cin >> m;
+    std::cout << " \n Nombre de colones ? ";
+    std::cin >> n;
+    Matrice mat2(m,n,0);
+    mat2.affecter();
+    mat2.afficher();
+
+
+/* DIFFERENTS TESTS SUCCESSFULL
+
+    std::cout << "\n Voicit le produit de kronecker de vos matrices :\n";
+    mat.kronecker(mat2).afficher();
+
+    std::cout << "\n voicit le test d'égalitée de vos deux matrices : \n";
+    if (mat==mat2) { std::cout << "Vos deux matrices sont egales"; } else { std::cout << "vos deux matrices ne sont pas egales"; }
+
+    std::cout << " \n voicit le test d'inégalitée de vos deux matrices : \n";
+    if ( mat != mat2 ) { std::cout << " Vos deux matrices sont inégales"; } else { std::cout << "vos deux matrices ne sont pas inégales"; }
+
+    std::cout << " \n voicit la somme de votre premiere matrice et de la constante 3\n";
+    (mat+3).afficher();
+
+    std::cout << "\n Voicit la somme de vos deux matrices : \n";
+    (mat+mat2).afficher();
+
+    std::cout << "\n Vocit votre deuxiemme matrice - 2 \n";
+    (mat2-2).afficher();
+
+    std::cout << "\n voicit votre premiere matrice moins la deuxiemme \n";
+    (mat-mat2).afficher();
+
+    std::cout << " \n Voicit 3 fois votre première matrice \n";
+    (mat*3).afficher();
+
+    std::cout << " \n Voicit le produit standard de vos deux matrice \n";
+    (mat*mat2).afficher();
+
+*/
+
+// Tests des surcharges d'opé suivantes :
+    std::cout << "\n voicit A+=3 \n";
+    (mat+=mat2).afficher();
+    
+    std::cout << "\n voicit A+=B\n";
+    (mat+=mat2).afficher();
+
+    std::cout << "\n voicit A-=3\n";
+    (mat-=3).afficher();
+    
+    std::cout << "\n voicit A-=B\n";
+    (mat-=mat2).afficher();
+
+    std::cout << "\n voicit A*=4\n";
+    (mat*=4).afficher();
+
+    std::cout << "\n voicit (A*=2) -= ( A+=B ) \n";
+    ( (mat*=2) -= (mat += mat2)).afficher();
+
+}

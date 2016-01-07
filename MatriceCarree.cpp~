@@ -1,0 +1,76 @@
+#include "MatriceCarree.h"
+
+
+// Redefinition des constructeurs :
+        MatriceCarree::MatriceCarree(){} // constructeur vide
+        MatriceCarree::MatriceCarree( int const & n): Matrice(n,n,0) // constructeur qui alloue et remplis avec l'identitée
+        {
+           for ( int i=0;i<n;i++ ) { for (int j=0;j<n;j++) {
+                if ( i==j )
+                {
+                    setValue(i,j,1); // des 1 sur la diagonale
+                }
+                else
+                {
+                    setValue(i,j,0); // et des 0 partout ailleur
+                }
+           }} // ça fais bien l'identitée ;)
+        }
+        MatriceCarree::MatriceCarree( int const & n, double const & x): Matrice(n,n,x){} // constructeur qui remplis de x.
+        MatriceCarree::~MatriceCarree(){} // ici pas besoin de free, le destructeur de Matrice est implicitement apeller.
+
+
+
+// Determinant, Inversibilitée, inversion
+
+        double MatriceCarree::determinant() const
+        {
+            //Cette méthode calcule le determinant d'une matrice carrée
+            
+        }
+
+        bool MatriceCarree::inversible() const
+        {
+            // Cette fonction vérifie que la matrice est bien inversible.
+            // etant donné que nous avons deja une fonstion qui calcule les sous-matrice, le plus simple est a mon avis de calculer le determinant de la matrice, et de verifier qu'il est simplement non-nul. Calculons donc le determinant dans une autre fonction...
+        }
+        MatriceCarree MatriceCarree::inverse() const
+        {
+
+        }   
+
+
+
+
+
+
+/*
+// méthodes supplmentaires : symetrique, positive.
+    bool MatriceCarree::symetrique() const
+    {
+        // Methode renvoyant true si la matrice carree est bien symetrique, et false sinon.
+        // Etre symetrique revient a etre egale a sa propre transposée, 
+        // donc un simple test nous renvera ce qu'il faut :
+
+        // verson longue :
+        if ( Matrice::transpose().transpose() == Matrice::transpose() ) // transposer 2 fois permet de trasnformer une MatriceCarree et Matrice ;)
+        {
+            // Si la matrice est sa propre transposée, elle est donc symetrique 
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
+        
+        // Version courte : 
+        // return ( matrice::transpose().transpose() == Matrice::transpose() );
+        
+    }
+    bool MatriceCarree::positive() const
+    {
+        //Méthode renvoyant true si la matrice carré est définie positive
+    }
+*/
+
