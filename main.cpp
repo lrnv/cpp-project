@@ -157,10 +157,10 @@ do {
         case 2:{ // Créer une matrice
 
             // Il va ici faloire créé une matrice, ajouter un au compteur du tableau, et mettre le pointeur du tableau comme il faut.
-            tab[nombre_de_matrice_en_memoire]=new *Matrice;
+          /*  tab[nombre_de_matrice_en_memoire]=new *Matrice;
             Matrice->Matrice();
             tab[nombre_de_matrice_en_memoire]*.affecter();
-            tab[nombre_de_matrice_en_memoire]*.afficher();
+            tab[nombre_de_matrice_en_memoire]*.afficher(); */
 
         break; }
 

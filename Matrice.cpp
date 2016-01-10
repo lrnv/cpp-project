@@ -530,4 +530,37 @@ void Matrice::Matriceremplie() // Utile pour pas avoir a retaper la matrice a ch
         }
 
 
+// Méthodes virtuelle de la classe matricecaréé, qu'il nous faut définir ici et leur faire renvoyer une erreur.
+
+            // Inversibilitée, inversion :
+                bool Matrice::inversible() const
+                {
+                    std::cout<<"Cette matrice n'est pas inversible, elle n'est pas carée ! Petit chenapan ;)";
+                    exit(0);
+                }
+                MatriceCarree Matrice::inverse() const
+                {
+                    std::cout<<"Vous essayez d'inverser une matrice non carée ! Petit chenapan ;)";
+                    exit(0);
+                }
+
+            // Symetrique, définie-positive ( tests )
+                bool Matrice::symetrique() const
+                {
+                    std::cout<<"Une matrice non-carée ne peut pas etre symetrique, voyons ! Petit chenapan ;)";
+                    exit(0);
+                }
+                bool Matrice::positive() const
+                {
+                    std::cout<<"Vraiment, une matrice non-carée définie positive ? Vous y croyez, vous ? Chenapan, va !";
+                    exit(0);
+                }
+        
+            // Determinant :
+                double Matrice::det() const
+                {
+                    std::cout<<"J'aimerais bien savoir comment on calcul le déterminant d'une matrice qui n'est pas carrée.. Chenapan, va !";
+                    exit(0);
+                }
+
 

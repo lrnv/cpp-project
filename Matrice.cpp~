@@ -30,6 +30,8 @@
 	        contenu[i][j]=x;
 	    }
 	    
+
+
 // Constructeurs et destructeur
         Matrice::Matrice() // Constructeur vide
         {
@@ -79,10 +81,24 @@
             for (int i=0;i<getM();i++)
             {
                 free(contenu[i]);
-            }
+            }     
             free(contenu);
 
         };
+
+// methode autofill
+void Matrice::Matriceremplie() // Utile pour pas avoir a retaper la matrice a chaque débeugage...
+{
+    int k=1;
+     for (int i=0;i<_m;i++)
+    {
+        for(int j=0;j<_n;j++)
+        {
+            contenu[i][j]=k++;
+        }
+    }
+}
+
 
 
 // Methodes In/out : affichage et remplissage
@@ -98,6 +114,7 @@
 		        }
 		        std::cout << "\n\n"; // espaçage pour que ce soit joli ;) 
 	        }
+            std::cout<<" l'adresse du pointeur est : "<<contenu<<std::endl;
         }
 
         void Matrice::affecter() // Remplissage de la matrice
@@ -129,7 +146,6 @@
 // toute les méthodes et opérateur qui doivent forcement retourner des choses retournerons une matrice de taille 0,0
 // Il faudras ensuite coder qqpart les vérification que cela ne retourne pas 0,0, pour sécuriser tout ça.
 
-
 // Methode sous-matrice, transposée et produit de kronecker
         Matrice Matrice::sousMatrice(int const &i, int const &j, int const &k, int const &l) const
         {
@@ -150,6 +166,7 @@
                     // le setValue est un accesseur de m et le getValue est un accesseur de l'objet principal.
                 }
             }
+            std::cout << " Adresse du pointeur dans sousmatrice"<<m.contenu<<std::endl;
             return m;
         }
 
@@ -203,7 +220,9 @@
         }
 
 
+
 // Surchages d'opérateurs ( et méthode préalables )
+        // les opérateurs ont été re-codé avec l'utilisation des opérateurs racourcits sous forme de méthode, mais l'ancien code est encore entre /* et */
 
         bool Matrice::memeTaille(Matrice const& A) const
         {
@@ -221,7 +240,7 @@
             }
             else
             {
-                for (int i=0;i<A.getM();i++) { for ( int j=0;j<A.getN();i++) { // le double-for classique déja utilisé ci-dessut
+                for (int i=0;i<A.getM();i++) { for ( int j=0;j<A.getN();j++) { // le double-for classique déja utilisé ci-dessut
                     if ( A.getValue(i,j) != B.getValue(i,j) )
                     {
                         return false;   // Et si A a des valeurs diferentes de B, elles ne sont pas egales.
@@ -239,6 +258,7 @@
 
         Matrice operator+(Matrice const& A, double const& x)
         {
+            /* // ANCIENNE VERSION
             // cet opérateur ajoute un scalaire a une matrice, c'est a dire a toute les valeur de la diagonale de cette matrice. 
             // On utilisera donc le constructeur de copie, puis une double boucle ajoutant x.
 
@@ -251,11 +271,16 @@
             }}
             // et on retourne le resultat sous forme d'une matrice : 
             return m;
+            */
+
+            // NOUVELLE VERSION :
+            Matrice m(A);
+            return m+=x;
         }
         
         Matrice operator+(Matrice const& A, Matrice const& B)
         {
-
+            /* // ANCIENNE VERSION
             // cet opérateur sert a faire la somme de deux matrices. On va donc faire exactement comme 
             //ci dessut, mais en replaçant la valeur par un getValue sur la deuxiemme matrice...
             // Tout ceci a condition, bien sur, que les deux matrice aie la meme taille ;)
@@ -275,9 +300,15 @@
                 std::cout << " Vos deux matrice n'ont pas la meme taille, vous ne pouvez donc pas les soustraire !";
                 exit(0); 
             }
+            */
+
+            // NOUVELLE VERSION :
+            Matrice m(A);
+            return m+=B;
         }
         Matrice operator-(Matrice const& A, double const& x)
         {
+            /* // ANCIENNE VERSION
             // Cet operateur fait la soustraction entre une matrice et un scalaire, c'est a dire qu'on va enlever la valeur uniquement sur la diagonale.
             // On va faire exactement pareil que pour l'opé somme, mais avec juste un moins dans la formule.
             Matrice m(A); // copie
@@ -289,12 +320,17 @@
             }}
             // et on retourne le resultat sous forme d'une matrice : 
             return m;
+            */
 
+            // NOUVELLE VERSION :
+            Matrice m(A);
+            return m-=x;
 
         }
 
         Matrice operator-(Matrice const& A, Matrice const& B)
         {
+            /* // ANCIENNE VERSION
             // Cet opérateur fait lui la soustraction entre deux matrice, et ce uniquement si elles sont de la meme taille...
             // On va donc récuperer le code de la somme, et ajouter un moins.
             // La relecture du code n'est meme pas nécéssaire, c'est juste le meme avec un signe qui change...
@@ -313,12 +349,17 @@
                 std::cout << " Vos deux matrices n'ont pas la meme taille, vous ne pouvez pas les soustraire !";
                 exit(0);
             }
+            */
 
+            // NOUVELLE VERSION
+            Matrice m(A);
+            return m-=B;
 
         }
 
         Matrice operator*(Matrice const& A, double const& x)
         {
+            /* // ANCIENNE VERSION
             // Cet opérateur fait le produit entre une matrice et une constante, définis comme le produit de toute les valeur de la matrice 
             // par le multiplicateur x. On va donc faire trivialement une double boucle sur la matrice et setValue le produit en question
             // sur une nouvelle matrice préalablement copié.
@@ -329,10 +370,17 @@
                 // Le getvalue dans matrice devant se rapporte bien evidement a la matrice objet donc cette fonction est une méthode....
             }}
             return m;
+            */
+
+            // NOUVELLE VERSION
+            Matrice m(A);
+            return m*=x;
         }
 
         Matrice operator*(Matrice const& A, Matrice const& B)
         {
+            /* Pas de nouvelle version possible pour cet opérateur */
+
             // Cet opérateur doit renvoyer le produit matriciel standard entre deux matrice. Ainsi, 
             // pour tout i,j convenable ( i.e de la bonne taille )
 
@@ -362,7 +410,7 @@
             {
                 // Le produit de deux matrices n'ayant pas des tailles corespondante etant impossible, EXIT
                 std::cout << " Vos deux matrices ne sont pas multipliable : elles n'ont pas des tailles apropriée a une multiplication ";
-                exit(0);
+                exit(EXIT_FAILURE);
             }
             
         }
@@ -373,16 +421,12 @@
         // le typage de ces opérateurs est clairement diferent des précédents : ils renvoit des pointeurs vers des 
         // matrices et pas des matrices.. de plus, ce sont des méthodes intrinsèque a la classe, d'ou le return *this.
 
-
         Matrice& Matrice::operator+=(double const& x)
         {
             // le but de cet opérateur est d'ajouter un scalaire a la matrice
-            for (int i=0;i<getM();i++) { for (int j=0;i<getN();i++) { // la double boucle, comme d'habitude
-                if ( i == j ) 
-                {
-                    setValue(i,j,(getValue(i,j)+x)); // On ne rajoute x que sur la diagonale !
-                }
-            }}
+            for (int i=0;i<getM();i++) { // une simple boucle suffit:
+                    setValue(i,i,(getValue(i,i)+x)); // On ne rajoute x que sur la diagonale !
+            }
             return *this; // le return *this; est standard pour ce type d'opérateur.
         }
         Matrice& Matrice::operator+=(Matrice const& A)
@@ -394,8 +438,8 @@
             if ( memeTaille(A) )
             {
                 // du coup on peut faire la somme : double boucle comme d'habitude...
-                for (int i=0;i<getM();i++) { for (int j=0;i<getN();i++) {
-                    setValue(i,j,(getValue(i,j)+(A.getValue(i,j)))); // On ajoute les valeur de l'autre matrice...
+                for ( int i=0;i<getM();i++) { for (int j=0;j<getN();j++) {
+                    setValue(i,j,getValue(i,j)+A.getValue(i,j)); // On ajoute les valeur de l'autre matrice...
                 }}
                 return *this; // et on return this.
             }
@@ -421,8 +465,8 @@
             if ( memeTaille(A) )
             {
                 // du coup on peut faire la soustraction: double boucle comme d'habitude...
-                for (int i=0;i<getM();i++) { for (int j=0;i<getN();i++) {
-                    setValue(i,j,(getValue(i,j)-(A.getValue(i,j)))); // On a juste changer un signe ici !
+                for (int i=0;i<getM();i++) { for (int j=0;j<getN();j++) {
+                    setValue(i,j,getValue(i,j)-A.getValue(i,j)); // On a juste changer un signe ici !
                 }}
                 return *this; // et on return this.
             }
@@ -442,6 +486,7 @@
             }}
             return *this;
         }
+
 
 
 // Methodes utiles pour les calculs d'inversibilitée et d'inversion, qui sont valables pour les matrices non-carrées:
@@ -467,7 +512,7 @@
             // Cette méthode multiplie la ligne i de la matrice par le scalaire x.
             // on fait donc une boucle et on assigne getValue(i,j)*x a chaque passage...
 
-            for ( int j=1;j<getN();j++)
+            for ( int j=0;j<getN();j++)
             {
                 setValue(i,j,getValue(i,j)*x);       
             }
@@ -480,12 +525,42 @@
 
             for ( int k=0;k<getN();k++)
             {
-                setValue(i,k,(x*getValue(j,k)));
+                setValue(j,k,getValue(j,k)-(x*getValue(i,k)));
             }
         }
 
 
+// Méthodes virtuelle de la classe matricecaréé, qu'il nous faut définir ici et leur faire renvoyer une erreur.
 
+            // Inversibilitée, inversion :
+                bool inversible() const
+                {
+                    std::cout<<"Cette matrice n'est pas inversible, elle n'est pas carée ! Petit chenapan ;)";
+                    exit(0);
+                }
+                virtual MatriceCarree inverse() const
+                {
+                    std::cout<<"Vous essayez d'inverser une matrice non carée ! Petit chenapan ;)";
+                    exit(0);
+                }
 
+            // Symetrique, définie-positive ( tests )
+                virtual bool symetrique() const
+                {
+                    std::cout<<"Une matrice non-carée ne peut pas etre symetrique, voyons ! Petit chenapan ;)";
+                    exit(0);
+                }
+                virtual bool positive() const
+                {
+                    std::cout<<"Vraiment, une matrice non-carée définie positive ? Vous y croyez, vous ? Chenapan, va !";
+                    exit(0);
+                }
+        
+            // Determinant :
+                virtual double det() const
+                {
+                    std::cout<<"J'aimerais bien savoir comment on calcul le déterminant d'une matrice qui n'est pas carrée.. Chenapan, va !";
+                    exit(0);
+                }
 
 

@@ -2,7 +2,7 @@
 #define MATRICE_HPP
 #include <iostream>
 #include <stdlib.h>
-
+//#define OUTPUT_DEBUG
 
 class Matrice {
 	public:
@@ -23,6 +23,9 @@ class Matrice {
 	        Matrice(int const& m, int const& n, double const& x); // contructeur initialisant la matrice ainsi que toute ses valeurs a x
 	        Matrice(Matrice const&); // constructeur par copie
 	        virtual ~Matrice(); // Destructeur
+
+        // autofill
+        void Matriceremplie();
 
         // Methode In/Out : affichage et remplissage;
             void affecter();
@@ -47,7 +50,24 @@ class Matrice {
             void echanger_deux_lignes(int const &i,int const &j);
             void multiplier_ligne_par_scal(int const &i, double const& x);
             void soustr_mult_ligne1_a_ligne2(int const& i, int const &j,double const &x);
+            
+        // methodes non-valables pour les matrices non carée, mais utiles en virtual pour le polymorphisme
+            //En effet, si les méthode de la classe matricecarée ne sont pas définie ici en virtual, le tableau deointeurs indférienciés
+            // sur des matrices ou des matricecaréé contiendra des matricecarrée n'ayant pas acces a ces méthodes. 
+            // En contrepartie, il faudra coder ces méthodes pour la classe matrice, et leur faire renvoyer une erreur.
+#ifndef MATRICECARREE_HPP
+#define MATRICECARREE_HPP
+            // Inversibilitée, inversion :
+                virtual bool inversible() const;
+                virtual MatriceCaree inverse() const;
 
+            // Symetrique, définie-positive ( tests )
+                virtual bool symetrique() const;
+                virtual bool positive() const;
+        
+            // Determinant :
+                virtual double det() const;
+#endif
 
 	protected:
         // On mettra ici les attribus d'un ellement de la classe
@@ -62,14 +82,14 @@ class Matrice {
 };
 
 
-// Les surcharges d'opérateurs : ( en dehors de la classe... )
+// Les surcharges d'opérateurs : ( en dehors de la classe... ) // sont marqué d'un //* ceux qui ont été retapés.
     bool operator==(Matrice const& A, Matrice const& B);
     bool operator!=(Matrice const& A, Matrice const& B);
-    Matrice operator+(Matrice const& A, double const& x);
-    Matrice operator+(Matrice const& A, Matrice const& B);
-    Matrice operator-(Matrice const& A, double const& x);
-    Matrice operator-(Matrice const& A, Matrice const& B);
-    Matrice operator*(Matrice const& A, double const& x);
+    Matrice operator+(Matrice const& A, double const& x); //*
+    Matrice operator+(Matrice const& A, Matrice const& B); //*
+    Matrice operator-(Matrice const& A, double const& x); //*
+    Matrice operator-(Matrice const& A, Matrice const& B); //*
+    Matrice operator*(Matrice const& A, double const& x); //*
     Matrice operator*(Matrice const& A, Matrice const& B);
 
 
