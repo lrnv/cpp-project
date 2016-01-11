@@ -50,7 +50,7 @@ class Matrice {
             void echanger_deux_lignes(int const &i,int const &j);
             void multiplier_ligne_par_scal(int const &i, double const& x);
             void soustr_mult_ligne1_a_ligne2(int const& i, int const &j,double const &x);
-            
+          
         // methodes non-valables pour les matrices non carée, mais utiles en virtual pour le polymorphisme
             //En effet, si les méthode de la classe matricecarée ne sont pas définie ici en virtual, le tableau deointeurs indférienciés
             // sur des matrices ou des matricecaréé contiendra des matricecarrée n'ayant pas acces a ces méthodes. 

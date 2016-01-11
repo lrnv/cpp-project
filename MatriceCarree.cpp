@@ -37,7 +37,7 @@
         {
             if ( m.getM() != m.getN() )
             {
-                std::cout<<"Vous essayez de faire une matrice carréé avec un truc qui ne l'est pas";
+                std::cout<<"Vous essayez promouvoir en matricecarrée une matrice qui ne l'est manifestement pas ! Petit chenapan ;)";
                 exit(EXIT_FAILURE);
             }
         }
@@ -309,5 +309,15 @@
                 return false;
             }
         }
+
+
+
+
+
+
+
+
+
+
 
 

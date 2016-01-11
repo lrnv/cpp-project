@@ -1,4 +1,4 @@
-#include "Matrice.h"
+#include "MatriceCarree.h"
 
 // Les accesseurs de la classe matrice
 	    int Matrice::getM() const // J'ai choisit de changer le type des accesseurs getN et getM pour les mettre en const.
@@ -6,7 +6,7 @@
 	        return _m;
 	    }
 	    
-	    int Matrice::getN() const // En effet, elle ne modifierons jamais l'objet, autant le dire au compilateur
+	    int Matrice::getN() const // En effet, ils ne modifierons jamais l'objet, autant le dire au compilateur
 	    {
 	        return _n;
 	    }
@@ -87,7 +87,7 @@
         };
 
 // methode autofill
-void Matrice::Matriceremplie() // Utile pour pas avoir a retaper la matrice a chaque débeugage...
+void Matrice::Matriceremplie() // Utile pour pas avoir a retaper la matrice a chaque débeugage... -> Uniquement pour les tests, a supprimer ensuite.
 {
     int k=1;
      for (int i=0;i<_m;i++)
@@ -114,7 +114,6 @@ void Matrice::Matriceremplie() // Utile pour pas avoir a retaper la matrice a ch
 		        }
 		        std::cout << "\n\n"; // espaçage pour que ce soit joli ;) 
 	        }
-            std::cout<<" l'adresse du pointeur est : "<<contenu<<std::endl;
         }
 
         void Matrice::affecter() // Remplissage de la matrice
@@ -538,7 +537,7 @@ void Matrice::Matriceremplie() // Utile pour pas avoir a retaper la matrice a ch
                     std::cout<<"Cette matrice n'est pas inversible, elle n'est pas carée ! Petit chenapan ;)";
                     exit(0);
                 }
-                MatriceCarree Matrice::inverse() const
+                MatriceCaree Matrice::inverse() const
                 {
                     std::cout<<"Vous essayez d'inverser une matrice non carée ! Petit chenapan ;)";
                     exit(0);
