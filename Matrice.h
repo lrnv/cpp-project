@@ -6,9 +6,6 @@
 
 class Matrice {
 	public:
-	    // On mettra ici les methodes de la classe
-	    
-	    
 	    // Les accesseurs de la classe
 	        int getM() const;
 	        int getN() const;
@@ -24,7 +21,7 @@ class Matrice {
 	        Matrice(Matrice const&); // constructeur par copie
 	        virtual ~Matrice(); // Destructeur
 
-        // autofill
+        // autofill usefull pour les tests.
         void Matriceremplie();
 
         // Methode In/Out : affichage et remplissage;
@@ -58,7 +55,7 @@ class Matrice {
 
             // Inversibilitée, inversion :
                 virtual bool inversible() const;
-                virtual Matrice inverse_call() const;
+                virtual Matrice inverse_call() const; // Inverse_call et non inverse, de type Matrice et non MatriceCarree.
 
             // Symetrique, définie-positive ( tests )
                 virtual bool symetrique() const;

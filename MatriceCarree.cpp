@@ -3,6 +3,7 @@
 
 // Redefinition des constructeurs :
         MatriceCarree::MatriceCarree(){} // constructeur vide
+        
         MatriceCarree::MatriceCarree( int const & n): Matrice(n,n,0) // constructeur qui alloue et remplis avec l'identitée
         {
            for ( int i=0;i<n;i++ ) { for (int j=0;j<n;j++) {
@@ -116,14 +117,21 @@
             // Dans le cas contraire, si l'algorythme de gauss se finit, c'est que la matrice est bien inversible. 
             return true;
         }
+
+
 		Matrice MatriceCarree::inverse_call() const
 		{
 			return this->inverse();
-		}
+		} // Cette fonction supplementaire a été mise a place quand je me suis apercut de 'limpossibilitée de passer en polymorphisme la fonction inverse : 
+        // Comme la fonction inverse renvoit une matricecarrée, il est impossbile de la définir dans la classe matrice ( pour des raisons logique que le compilateur explique très bien : 
+        // Cela reconduirais enfait a une forme de boulce infinie de classes... Ainsi, ne pouvant PAS passer ma méthode inverse() en virtual, 
+        // j'ai contourner le problème en créant une fonction invers_call qui ELLE sera passer en virtual. 
+        // Comme elle ne retourne ( du coup ) qu'une Matrice, le contructeur par copie-promotion sera utiliser avec de manière a reproduire le fonctionement souhaité 
+        // de la fonction inverse. 
+        // Il aurais été plus propre de directement déclarer comme Matrice la fonction inverse, mais le sujet impose cela.
 
         MatriceCarree MatriceCarree::inverse() const
         {
-			std::cout << "INVERSION MATRICE CARRE DANS TA FACE BIATCH" << std::endl;
             // Cette méthode retourne l'inverse de la matrice. Pour calculer cela, nous utiliserons l'algorythme de gauss-jordan
             // et ce bien sur a condition que la matrice soit inversible ! C'est pourquoi cette fonction de s'appliquera qu'après avoir verifier l'inversibilitée de la matrice.
             
