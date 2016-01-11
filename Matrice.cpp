@@ -537,7 +537,7 @@ void Matrice::Matriceremplie() // Utile pour pas avoir a retaper la matrice a ch
                     std::cout<<"Cette matrice n'est pas inversible, elle n'est pas carée ! Petit chenapan ;)";
                     exit(0);
                 }
-                Matrice Matrice::inverse() const
+                Matrice Matrice::inverse_call() const
                 {
                     std::cout<<"Vous essayez d'inverser une matrice non carée ! Petit chenapan ;)";
                     exit(0);
