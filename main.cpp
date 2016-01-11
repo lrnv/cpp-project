@@ -128,9 +128,13 @@ la bonne classe.
 // et leur appliquer les méthodes de matricecarréé sans aucun soucis : Au moment d el'appel de la méthode,
 // a condition qu'elle existe en virtual dans matrice, le compilateur appliquera la methode qui va bien. 
 
+int ctrl;
+int i;
+
 Matrice **tab=new Matrice*[100]; // création du tableau de matrices
 int nombre=0; // le nombre de matrice en mémoire
 do {
+	
     // Questionement sur quoi faire et on met le choix dans ctrl
     std::cout << " Choisissez quoi faire : \n1 - Afficher les Matrices disponible \n2 - Créé une matrice \n3 - Transposer une matrice \n4 - Calculer le produit de Kronecker de deux matrices \n5 - Extraire une sous-matrice d'une de vos matrices \n6 - Faire des opération élémentaires entre une de vos matrice et un scalaire \n7 - Faire des opération élémentaire entre deux de vos matrices \n8 - Verifier qu'une matrice carrée est inversible, l'inverser. \n9 - Verifier qu'une matrice carree est symetrique \n10 - Verifier qu'une matrice carree est bien définie positive \n11 - Calculer la factorisation de choleky d'une matrice définie positive ( a venir )\n12 - Calculer le determinant d'une matrice carree \n13 - Supprimer une matrice\n\n0 - Quiter le programe\n";
     std::cin>>ctrl;
@@ -168,10 +172,11 @@ do {
             }
             else // La matrice est donc carrée.
             {
-                tab[i]=new MatriceCarree(n)
+                tab[i]=new MatriceCarree(n);
             }
             // Ne laissons pas cette pauvre matrice vide, affectons lui des valeurs :
             tab[i]->affecter();
+            nombre++;
 
 
         break; }

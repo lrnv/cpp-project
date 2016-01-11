@@ -19,7 +19,7 @@ class MatriceCarree:public Matrice
 
         // Inversibilitée, inversion :
             bool inversible() const;
-            MatriceCarree inverse() const;
+            Matrice inverse() const;
 
         // Symetrique, définie-positive ( tests )
             bool symetrique() const;

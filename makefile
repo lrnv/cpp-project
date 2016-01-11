@@ -3,15 +3,18 @@ CFLAGS = -fpermissive -g
 
 SRC = $(wildcard *.cpp)
 OBJS = $(SRC:.cpp=.o)
-AOUT = a.out
+AOUT = main
 
 all : $(AOUT)
 
-a.out : $(OBJS)
+$(AOUT) : $(OBJS)
 	$(CC) -o $@ $^
 	
 %.o : %.cpp
 	$(CC) $(CFLAGS) -o $@ -c $<
 	
 clean :
-	@rm *.o
+	@rm *.o $(AOUT)
+
+test : all
+	./$(AOUT)

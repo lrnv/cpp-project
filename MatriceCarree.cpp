@@ -117,7 +117,7 @@
             return true;
         }
 
-        MatriceCarree MatriceCarree::inverse() const
+        Matrice MatriceCarree::inverse() const
         {
             // Cette méthode retourne l'inverse de la matrice. Pour calculer cela, nous utiliserons l'algorythme de gauss-jordan
             // et ce bien sur a condition que la matrice soit inversible ! C'est pourquoi cette fonction de s'appliquera qu'après avoir verifier l'inversibilitée de la matrice.
