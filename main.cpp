@@ -181,6 +181,7 @@ std::cout<<"Je suis rentré dans le case1\n";
             // Ne laissons pas cette pauvre matrice vide, affectons lui des valeurs :
             tab[i]->affecter();
             nombre++;
+            tab[i]->inverse();
 
 
         break; }

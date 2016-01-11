@@ -116,9 +116,14 @@
             // Dans le cas contraire, si l'algorythme de gauss se finit, c'est que la matrice est bien inversible. 
             return true;
         }
+		Matrice MatriceCarree::inverse_call() const
+		{
+			return this->inverse();
+		}
 
-        Matrice MatriceCarree::inverse() const
+        MatriceCarree MatriceCarree::inverse() const
         {
+			std::cout << "INVERSION MATRICE CARRE DANS TA FACE BIATCH" << std::endl;
             // Cette méthode retourne l'inverse de la matrice. Pour calculer cela, nous utiliserons l'algorythme de gauss-jordan
             // et ce bien sur a condition que la matrice soit inversible ! C'est pourquoi cette fonction de s'appliquera qu'après avoir verifier l'inversibilitée de la matrice.
             

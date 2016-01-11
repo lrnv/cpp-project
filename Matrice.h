@@ -58,7 +58,7 @@ class Matrice {
 
             // Inversibilitée, inversion :
                 virtual bool inversible() const;
-                virtual Matrice inverse() const;
+                virtual Matrice inverse_call() const;
 
             // Symetrique, définie-positive ( tests )
                 virtual bool symetrique() const;
