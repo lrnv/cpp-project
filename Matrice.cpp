@@ -535,7 +535,7 @@ void Matrice::Matriceremplie() // Utile pour pas avoir a retaper la matrice a ch
                 bool Matrice::inversible() const
                 {
                     std::cout<<"Cette matrice n'est pas inversible, elle n'est pas carée ! Petit chenapan ;)";
-                    exit(0);
+                    return false;
                 }
                 Matrice Matrice::inverse_call() const
                 {
@@ -547,12 +547,12 @@ void Matrice::Matriceremplie() // Utile pour pas avoir a retaper la matrice a ch
                 bool Matrice::symetrique() const
                 {
                     std::cout<<"Une matrice non-carée ne peut pas etre symetrique, voyons ! Petit chenapan ;)";
-                    exit(0);
+                    return false;
                 }
                 bool Matrice::positive() const
                 {
                     std::cout<<"Vraiment, une matrice non-carée définie positive ? Vous y croyez, vous ? Chenapan, va !";
-                    exit(0);
+                    return false;
                 }
         
             // Determinant :

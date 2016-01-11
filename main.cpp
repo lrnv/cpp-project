@@ -142,21 +142,18 @@ do {
     {
         case 1:{ // Afficher les matrices disponibles
             // Une boulce for jusqu'au nombre de matrices en mémoire avec des affichages fera l'affaire. Verifions quand meme qu'il y en a :
-std::cout<<"Je suis rentré dans le case1\n";
+
             if ( nombre == 0 )
             {
                 std::cout<< " Vous n'avez aucunes matrice en mémoire ! Créez-en une avent d'essayer de l'afficher ;)";
             }
             else
             {
-                std::cout<<"je suis rentrer dans le else\n";
                 for (int i=0;i<nombre;i++)
                 {
-                    std::cout<<"je suis rentré dansle for\n\n";
                     tab[i]->afficher();
                     std::cout<<"\n\n";
                 }
-                std::cout<<"le for est finit et i=";
             }
                 // Cela devrais suffire pour l'instant. On pourra essayer d'impove l'affichage, en en mettant quelqu'unes cote a cote, maybe ? 
         break; }
@@ -179,9 +176,8 @@ std::cout<<"Je suis rentré dans le case1\n";
                 tab[nombre]=new MatriceCarree(n);
             }
             // Ne laissons pas cette pauvre matrice vide, affectons lui des valeurs :
-            tab[i]->affecter();
+            tab[nombre]->affecter();
             nombre++;
-            tab[i]->inverse();
 
 
         break; }
@@ -207,6 +203,10 @@ std::cout<<"Je suis rentré dans le case1\n";
         break; }
 
         case 8:{ // Verifier qu'une matrice carréé est inversible, l'inverser
+            
+            // Cela ce fera en 3 etapes : Laisse le chix au USER de la matrice qu'il souhaite inverser, verifier qu'elle est inversible, et l'inverser.
+
+            // 
 
         break; }
 
