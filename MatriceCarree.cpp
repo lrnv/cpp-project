@@ -47,7 +47,6 @@
 
 
 
-
 // Inversibilitée, inversion
         // fonction préalable : la valeur absolue
         double valeurabsolue(double k)
@@ -196,6 +195,7 @@
         }  
 
 
+
 // Determinant
         double MatriceCarree::det() const
         {
@@ -270,6 +270,8 @@
             // Il est donc probable que la version d'origine d'inversibilitée devienne obsolette et ne soit remplacée par une version exploitant la fonction determinant. 
             // L'ancien code sera laisser en commentaire, mais ne sera plus maintenu, gare donc a ceux qui voudrons le faire tourner.
         }
+
+
 
 // Méthodes symetrique, définie-positive.
         bool MatriceCarree::symetrique() const

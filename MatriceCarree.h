@@ -5,10 +5,8 @@
 
 #include "Matrice.h"
 
-class MatriceCarree:public Matrice
-{
+class MatriceCarree:public Matrice {
     public:
-        
         // Redefinition des constructeurs :
             MatriceCarree(); // constructeur vide
             MatriceCarree( int const & n); // constructeur qui alloue et remplis avec l'identitée

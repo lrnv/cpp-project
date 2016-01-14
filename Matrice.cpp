@@ -29,7 +29,7 @@
 	    {
 	        contenu[i][j]=x;
 	    }
-	    
+
 
 
 // Constructeurs et destructeur
@@ -86,18 +86,20 @@
 
         };
 
+
+
 // methode autofill
-void Matrice::Matriceremplie() // Utile pour pas avoir a retaper la matrice a chaque débeugage... -> Uniquement pour les tests, a supprimer ensuite.
-{
-    int k=1;
-     for (int i=0;i<_m;i++)
-    {
-        for(int j=0;j<_n;j++)
+        void Matrice::Matriceremplie() // Utile pour pas avoir a retaper la matrice a chaque débeugage... -> Uniquement pour les tests, a supprimer ensuite.
         {
-            contenu[i][j]=k++;
+            int k=1;
+             for (int i=0;i<_m;i++)
+            {
+                for(int j=0;j<_n;j++)
+                {
+                    contenu[i][j]=k++;
+                }
+            }
         }
-    }
-}
 
 
 
@@ -136,14 +138,10 @@ void Matrice::Matriceremplie() // Utile pour pas avoir a retaper la matrice a ch
                 }
 	        }
             
-            std::cout << "Votre matrice a bien été remplie\n";
-
-            
+            std::cout << "Votre matrice a bien été remplie\n";    
         }
 
-// Il a été décider que quand une opération n'est pas possible, on ferais un exit(0); Dans un second temps on implementera que :
-// toute les méthodes et opérateur qui doivent forcement retourner des choses retournerons une matrice de taille 0,0
-// Il faudras ensuite coder qqpart les vérification que cela ne retourne pas 0,0, pour sécuriser tout ça.
+
 
 // Methode sous-matrice, transposée et produit de kronecker
         Matrice Matrice::sousMatrice(int const &i, int const &j, int const &k, int const &l) const
@@ -165,7 +163,6 @@ void Matrice::Matriceremplie() // Utile pour pas avoir a retaper la matrice a ch
                     // le setValue est un accesseur de m et le getValue est un accesseur de l'objet principal.
                 }
             }
-            std::cout << " Adresse du pointeur dans sousmatrice"<<m.contenu<<std::endl;
             return m;
         }
 
@@ -408,7 +405,7 @@ void Matrice::Matriceremplie() // Utile pour pas avoir a retaper la matrice a ch
             else
             {
                 // Le produit de deux matrices n'ayant pas des tailles corespondante etant impossible, EXIT
-                std::cout << " Vos deux matrices ne sont pas multipliable : elles n'ont pas des tailles apropriée a une multiplication ";
+                std::cout << " Vos deux matrices ne sont pas multipliable : elles n'ont des tailles apropriées. petit chenapan ;) ";
                 exit(EXIT_FAILURE);
             }
             
@@ -444,8 +441,8 @@ void Matrice::Matriceremplie() // Utile pour pas avoir a retaper la matrice a ch
             }
             else
             {
-                std::cout << " vos deux matrices n'ont pas la meme taille, vous ne pouvez pas les aditioner avec +=";
-                exit(0);
+                std::cout << " Vos deux matrices n'ont pas la meme taille, vous ne pouvez pas les aditioner. Petit chanapan ;)";
+                exit(EXIT_FAILURE);
             }
         }
 
@@ -471,8 +468,8 @@ void Matrice::Matriceremplie() // Utile pour pas avoir a retaper la matrice a ch
             }
             else
             {
-                std::cout << " vos deux matrices n'ont pas la meme taille, vous ne pouvez pas les aditioner avec +=";
-                exit(0);
+                std::cout << " Vos deux matrices n'ont pas la meme taille, vous ne pouvez pas les soustraire. Petit chenapan ;)";
+                exit(EXIT_FAILURE);
             }
         }
 
@@ -529,8 +526,8 @@ void Matrice::Matriceremplie() // Utile pour pas avoir a retaper la matrice a ch
         }
 
 
-// Méthodes virtuelle de la classe matricecaréé, qu'il nous faut définir ici et leur faire renvoyer une erreur.
 
+// Méthodes virtuelle de la classe matricecaréé, qu'il nous faut définir ici et leur faire renvoyer une erreur.
             // Inversibilitée, inversion :
                 bool Matrice::inversible() const
                 {
