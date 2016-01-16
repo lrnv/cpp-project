@@ -294,7 +294,7 @@
             {
                 // la somme n'est pas possible, donc EXIT
                 std::cout << " Vos deux matrice n'ont pas la meme taille, vous ne pouvez donc pas les soustraire !";
-                exit(0); 
+                exit(EXIT_FAILURE); 
             }
             */
 
@@ -343,7 +343,7 @@
             {
                 // Les deux matrices n'ont pas la meme taille, on ne les soustraira donc pas : EXIT
                 std::cout << " Vos deux matrices n'ont pas la meme taille, vous ne pouvez pas les soustraire !";
-                exit(0);
+                exit(EXIT_FAILURE);
             }
             */
 
@@ -420,10 +420,13 @@
         Matrice& Matrice::operator+=(double const& x)
         {
             // le but de cet opérateur est d'ajouter un scalaire a la matrice
-            for (int i=0;i<getM();i++) { // une simple boucle suffit:
+            for (int i=0;i<getM();i++) { for (int j=0;j<getN();j++ ) { // double boucle sur la matrice...
+                if ( i == j )
+                {
                     setValue(i,i,(getValue(i,i)+x)); // On ne rajoute x que sur la diagonale !
-            }
-            return *this; // le return *this; est standard pour ce type d'opérateur.
+                }
+            }}
+            return *this; // le return *this; est standard pour ce type d'opérateur : On renvois l'adresse uniquement.
         }
         Matrice& Matrice::operator+=(Matrice const& A)
         {
@@ -537,7 +540,7 @@
                 Matrice Matrice::inverse_call() const
                 {
                     std::cout<<"Vous essayez d'inverser une matrice non carée ! Petit chenapan ;)";
-                    exit(0);
+                    exit(EXIT_FAILURE);
                 }
 
             // Symetrique, définie-positive ( tests )
@@ -556,7 +559,14 @@
                 double Matrice::det() const
                 {
                     std::cout<<"J'aimerais bien savoir comment on calcul le déterminant d'une matrice qui n'est pas carrée.. Chenapan, va !";
-                    exit(0);
+                    exit(EXIT_FAILURE);
+                }
+
+            // Cholesky :
+                Matrice Matrice::cholesky_call() const
+                {
+                    std::cout<<"Vous essayer de calculer la factorisation de cholesky d'une matrice qui n'est meme pas carrée ! petit chenapan ;)";
+                    exit(EXIT_FAILURE);
                 }
 
 

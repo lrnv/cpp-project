@@ -23,6 +23,10 @@ class MatriceCarree:public Matrice {
         // Symetrique, définie-positive ( tests )
             bool symetrique() const;
             bool positive() const;
+
+        // Factorisation de cholesky :
+            Matrice cholesky_call() const;
+            MatriceCarree cholesky() const;
         
         // Determinant :
             double det() const;

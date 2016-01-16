@@ -1,5 +1,5 @@
 #include "MatriceCarree.h"
-
+#include <cmath> // Pour la racine carrée de cholesky.
 
 // Redefinition des constructeurs :
         MatriceCarree::MatriceCarree(){} // constructeur vide
@@ -326,6 +326,71 @@
         }
 
 
+		Matrice MatriceCarree::cholesky_call() const
+		{
+			return this->cholesky();
+		} // Meme problème, meme solution. 
+
+
+        MatriceCarree MatriceCarree::cholesky() const
+        {
+            // Cette méthode renvoiera la factorisation de cholesky de la matrice
+            // l'algorythme a été piquer sur wikipedia :
+            if ( positive() ) // si la matrice est symetrique définie positive
+            {
+                    MatriceCarree L(getN(),0); // Créons la pleine de zero
+                    
+                    // Commençons par la 1ere valeur : 
+                    double valeur=sqrt(getValue(0,0));
+                    L.setValue(0,0,valeur);
+
+                    // la suite de la 1ere colone : 
+
+                    for (int j=1;j<getN();j++)
+                    {
+                        valeur= getValue(0,j) / L.getValue(0,0);
+                        L.setValue(0,j,valeur);
+                    }
+
+                    // Passons maintenant a la récursivitée pour les collones suivantes : 
+
+                    for (int i=1;i<getN();i++)
+                    {
+                        double somme=0;
+                        // pour j=i :
+                        //valeur = sqrt(getValue(i,i)- Li,1 carré - ... - Li,i-1 carré
+                        for (int k=0;k<i-1;k++)
+                        {
+                            somme+=(L.getValue(i,k)*L.getValue(i,k));
+                        }
+                        valeur = sqrt(getValue(i,i)-somme);
+                        L.setValue(i,i,valeur);
+
+                        // pour j>i :
+                        for (int j=i+1;j<getN();j++)
+                        {
+                            somme=0;
+                            // meme délire :
+                            // valeur = getValue(i,i+1)- Li,1 * Li+1,1 - ... - Li,i-1*Li+1,i-1 le tout divisé par Li,i
+                            for (int k=0;k<i;k++ )
+                            {
+                                somme +=( L.getValue(i,k) * L.getValue(j,k) );
+                            }
+                            valeur = ( getValue(i,j) - somme ) / L.getValue(i,i);
+
+                            L.setValue(i,j,valeur);
+                        }
+                    }
+                    return L;
+            }
+            else
+            {
+                // La factorisation de cholesky d'une matrice non-définie-positive n'existe pas.
+                std::cout<<"Vous essayez de calculer la factorisation de cholesky d'une matrice carrée non-définie-positive !";
+
+            }
+
+        }
 
 
 

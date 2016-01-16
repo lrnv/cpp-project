@@ -2,8 +2,16 @@
 #include <stdlib.h>
 #include "MatriceCarree.h"
 
+
+
+///////////////// QUELQUES FONCTIONS PREALABLES /////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////// QUELQUES FONCTIONS PREALABLES ///////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 int choix_matrice(int nombre){
-    // Cette fonction, bien que simpliste, est très utile pour le main. Cela permet d'éviter d'écrire 15fois la meme chose...
+    // Cette fonction, bien que simpliste, est très utile pour le main.
     // Elle permet juste de choisir une matrice parmis les matrices disponibles.
     int choix;
     std::cout<<"Pour choisir une matrice, entrez un nombre entre 1 et "<<nombre<<" : ";
@@ -21,7 +29,8 @@ int choix_matrice(int nombre){
 
 void sauver_ou_afficher( bool conserver, Matrice M, Matrice** &tab, int &nombre ){
     // Plutot que de recopier N fois ce bout de code, autant en faire directement une fonction.
-    // Il sert juste, dans le cas Etraction / Modification du switch, a enregistrer le travail ou a l'afficher.
+    
+    // Cette fonction sert juste a finaliser le travail sur une matrice : soit on l'affiche soit on l'enregistre.
     if ( conserver )
     {
         // Sauver la matrice revient a mettre son adresse dans la case suivante du tableau, et d'incrémenter.
@@ -46,6 +55,9 @@ void sauver_ou_afficher( bool conserver, Matrice M, Matrice** &tab, int &nombre 
 }
 
 bool souhaitez_vous_conserver_la_matrice_entree(){
+
+    // L'utilitées de cette fonction se lit dans son nom, explicite.
+
     // Mettre cette fonction ici permet de rendre le Main encore un peu plus clair, meme si elle n'est au final que peu utilisée,
     // cela découpe le code en petit bouts et le rend plus lisibile;
     char choix;
@@ -59,8 +71,8 @@ bool souhaitez_vous_conserver_la_matrice_entree(){
     { 
         return true;
     }
-    // Si choix vaut n, on considèrera que 'lon souhaite une modification de la matrice.
-    // Sinon, on considerera qu'on souhaite une simple extraction dans une nouvelle matrice ( Y par deffaut ).
+    // Si choix vaut n, on considèrera que l'on ne souhaite pas conserver la matrice
+    // Sinon, on considerera qu'on souhaite une simple extraction dans une nouvelle matrice, que l'on souhaite enregistrer.
 }
 
 int main(){
@@ -171,9 +183,9 @@ int main(){
 */
 
 
-/////////////////////////////// DEBUT DU MAIN OFFICIEL //////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////// DEBUT DU MAIN ///////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////// DEBUT DU MAIN OFFICIEL //////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////// DEBUT DU MAIN ///////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -186,7 +198,7 @@ int main(){
 
     int ctrl,ctrl2,ctrl3; // Emboitage de 3 switchs maximum.
     int i,p,m,n; // variable de traitement.
-    double scalaire; // Pour les somme et soustractions.
+    double scalaire; // Pour les somme, soustractions et produits.
 
     Matrice **tab=new Matrice*[100]; // création du tableau de matrices
     int nombre=3; // le nombre de matrice en mémoire -> On a mis les 3 suivantes pour faire des tests : 
@@ -204,8 +216,10 @@ int main(){
 
     std::cout<<"Bienvenue dans ce gestionaire de matrices.\n\n\n";
     do {
+        // un peu de mise en forme :
+        std::cout<<"\n\n******************************************************************************************************************************************\n******************************************************* MENU PRINCIPAL *******************************************************************\n******************************************************************************************************************************************\n\n";
 
-        std::cout<<"Vous avez "<<nombre<<" matrices en mémoire.\n    Voicit les actions a votre disposition :\n\n    1 - Afficher les matrices disponibles\n    2 - Créer une matrice.\n    3 - Calculer des choses avec vos matrices\n    4 - Afficher diverses propriétées d'une matrice\n    5 - Supprimer une matrice\n    0 - Quitter le programme\n\n Votre choix : ";
+        std::cout<<"Vous avez "<<nombre<<" matrices en mémoire. Voicit les actions a votre disposition :\n\n    1 - Afficher les matrices disponibles\n    2 - Créer une matrice.\n    3 - Calculer des choses avec vos matrices\n    4 - Afficher diverses propriétées d'une matrice\n    5 - Supprimer une matrice\n    0 - Quitter le programme\n\n Votre choix : ";
         std::cin>>ctrl;
         std::cout<<"\n\n";
 
@@ -236,24 +250,15 @@ int main(){
             case 2: // Créer une matrice : DONE
             {
                
-                // Il va ici faloire créé une matrice et ajouter un a nombre, le compteur du tableau de matrice.
+                // Il va ici faloire créé une matrice et l'enregistrer. 
                 std::cout<<"Vous allez créer une matrice. Veuillez renseigner sa largeur : ";
-                std::cin>>m;
-                std::cout<<"Sa hauteur : ";
                 std::cin>>n;
-            
-                if ( n != m ) // La matrice n'est donc pas carrée.
-                {
-                    tab[nombre]=new Matrice(n,m);
-                }
-                else // La matrice est donc carrée.
-                {
-                    tab[nombre]=new MatriceCarree(n);
-                    std::cout<<"Votre matrice est carrée, cela a été pris en compte"<<std::endl;
-                }
-                // Ne laissons pas cette pauvre matrice vide, affectons lui des valeurs :
-                tab[nombre]->affecter();
-                nombre++; // incrémentons le nombre de matrices en mémoire. 
+                std::cout<<"Sa hauteur : ";
+                std::cin>>m;
+                Matrice M(m,n); // on la créer
+                M.affecter(); // on la remplis
+                
+                sauver_ou_afficher(true,M,tab,nombre); // Avec le true, on sauve la matrice directement.
                 break;
             }
 
@@ -262,7 +267,10 @@ int main(){
                 bool conserver=souhaitez_vous_conserver_la_matrice_entree();
                 int matrice_choisie=choix_matrice(nombre);
                 
-                std::cout<<"\n Que souhaitez vous faire avec votre matrice ?\n    1 - Calculer une sous-matrice\n    2 - Calculer une transposée\n    3 - Calculer un produit de kronecker\n    4 - Cacluler une somme, souscration, produit par un scalaire\n    5 - Calculer une somme, soustraction, produit par une matrice\n    6 - Calculer l'inverse\n    7 - Calcluer la factorisation de cholesky\n    0 - Revenir au menu principal\n Votre choix : ";
+
+                std::cout<<"\n\n     **********************************************************************************************************************\n     ********************************************* SOUS MENU CALCUL *******************************************************\n     **********************************************************************************************************************\n\n";
+
+                std::cout<<"Que souhaitez vous faire avec votre matrice ?\n\n    1 - Calculer une sous-matrice\n    2 - Calculer une transposée\n    3 - Calculer un produit de kronecker\n    4 - Cacluler une somme, souscration, produit par un scalaire\n    5 - Calculer une somme, soustraction, produit par une matrice\n    6 - Calculer l'inverse\n    7 - Calcluer la factorisation de cholesky\n    0 - Revenir au menu principal\n Votre choix : ";
                 std::cin>>ctrl2;
                 
                 switch ( ctrl2 )
@@ -292,7 +300,6 @@ int main(){
                     {
                         // Calculons la trasposée de tab[matrice_choisie] :
                         sauver_ou_afficher(conserver,tab[matrice_choisie]->transpose(),tab,nombre);
-                        std::cout<<"\n\n"; // Un peu de mise en forme sommaire....
                         break;
                     }
 
@@ -305,11 +312,13 @@ int main(){
                         break;
                     }
 
-                    case 4: // Calculer une somme, soustraction ou produit par un scalaire DONE
+                    case 4: // Calculer une somme, soustraction ou produit par un scalaire : DONE
                     {
                         // Clairement, on va utiliser un switch supplementaire. On pourrais pour plus de claretée n'utiliser qu'un seul switch en tout, si j'ai le temps j'étudierais cette possibilitée, ce sera peut-etre plus propre.
                         std::cout<<"Entrer un scalaire :";
                         std::cin>>scalaire;
+                        std::cout<<"\n\n     **************************************************************************************************\n     ******************************* SOUS-SOUS MENU SCALAIRE ******************************************\n     **************************************************************************************************\n\n";
+
                         std::cout<<"\nQue souhaitez-vous en faire : \n    1 - L'ajouter a ma matrice\n    2 - Le soustraire a ma matrice\n    3 - Multiplier ma matrice par ce scalaire\n  Votre choix : ";
                         std::cin>>ctrl3;
                         switch ( ctrl3 )
@@ -344,6 +353,8 @@ int main(){
                         // Ce case est FORTEMENT inspiré de celui du dessut ;)
                         std::cout<<"Choissisez maintenant votre deuxiemme matrice.\n";
                         int deuxiemme_matrice_choisie=choix_matrice(nombre);
+
+                        std::cout<<"\n\n     **************************************************************************************************\n     ******************************* SOUS-SOUS MENU SCALAIRE ******************************************\n     **************************************************************************************************\n\n";
 
                          std::cout<<" Que souhaitez-vous faire de ces deux matrices : \n    1 - Les Additioner\n    2 - Soustraire la seconde a la première\n    3 - multiplier la 1ere par la seconde\n  Votre choix : ";
                         std::cin>>ctrl3;
@@ -383,9 +394,10 @@ int main(){
                         break;
                     }
 
-                    case 7: // Calculer la factorisation de cholesky : TO-DO
+                    case 7: // Calculer la factorisation de cholesky : DONE
                     {
-                        std::cout<<" La factorisation de cholesky n'a pas encore été implémentée. Désolé !";
+                        sauver_ou_afficher(conserver,tab[matrice_choisie]->cholesky_call(),tab,nombre);
+                        // la fonction cholesky_call repond au meme besoin que la fonction inverse_call.
                     }
 
                     case 0: // Retour au menu principal : DONE
@@ -466,10 +478,8 @@ int main(){
         
             default :{}
         }
-    // un peu de mise en forme :
-    std::cout<<"\n******************************************************************************************************************************************\n******************************************************************************************************************************************\n\n";
-    }
-    while ( ctrl !=0);
+
+    }while ( ctrl !=0);
 
     // Liberation de l'espace mémoire du new avent de quitter le programme
     delete tab[0];

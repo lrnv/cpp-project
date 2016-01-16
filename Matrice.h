@@ -64,6 +64,10 @@ class Matrice {
             // Determinant :
                 virtual double det() const;
 
+            // Cholesky :
+                virtual Matrice cholesky_call() const;
+
+
     protected: // On mettra ici les attribus d'un ellement de la classe
             int _m; // le nombre de lignes de la matrice
             int _n; // son nombre de colones
