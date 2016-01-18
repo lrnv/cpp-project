@@ -76,113 +76,6 @@ bool souhaitez_vous_conserver_la_matrice_entree(){
 }
 
 int main(){
-///////////////// DIFERENTS TESTS FONCTIONELS ///////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////// DIFERENTS TESTS FONCTIONELS /////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-    // On fera ici attention a fait que dans TOUTES les manipulations sur les matrices, elles sont indexées de 0 a n-1 et m-1,
-    //donc dans les cas ou l'on demande des lignes ou des colones a l'utilisateur ( je pense a un choix de sous-matrice par exemple ),
-    //il faudra rectifier cela sinon la sous-matrice affichée sera décalée vers en bas a droite par rapport a ce que demande l'USER.
-
-/*
-    //creation d'une 1ere matrice..
-        int m,n;
-        std::cout << "Vous allez creer une matrice, commencez par renseigner ses dimentions.\n Nombre de lignes ? ";
-        std::cin >> m;
-        std::cout << " \n Nombre de colones ? ";
-        std::cin >> n;
-        Matrice mat(m,n,0);
-        mat.affecter();
-        mat.afficher();
-    
-    //création d'une 2eme matrice CAREE
-        std::cout << "Vous allez creer une matrice caree, commencez par renseigner sa taille : ";
-        int m;
-        std::cin >> m;
-        MatriceCarree mat2(m);
-        mat2.affecter();
-        mat2.afficher();
-
-    // Création d'une sous-matrice + test de transpose + autres tests
-        std::cout<<"extraction sous matrice"<<std::endl;
-        Matrice mat3=mat2.sousMatrice(1,2,1,3);
-        std::cout<<"fin extract\n";
-        mat3.afficher();
-        Matrice mat4=mat3.transpose();
-        mat4.afficher();
-
-
-    //Test de DP
-        if ( mat2.positive() ) { std::cout << " Votre matrice est défiinie positive "; }
-        else { std::cout << " Votre matrice n'est pas définit positive "; }
-
-    // test de symetrique :
-        if (mat2.symetrique()) { std::cout << "Votre matrice est symetrique"; } else { std::cout << "Votre matrice n'est pas symetrique"; }
-
-    // Test de determinant : 
-        std::cout << " Le determinant de votre matrice est : " << mat2.det();
-
-    // Test des methodes inversible et inverse :    
-        if (mat2.inversible()) 
-        { 
-            std::cout << "votre matrice est inversible, voicit son inverse : \n";
-            mat2.inverse().afficher();
-        }
-        else { std::cout << " Votre matrice n'est pas inversible" ; }
-
-    // test du produit de kronecker
-        std::cout << "\n Voicit le produit de kronecker de vos matrices :\n";
-        mat.kronecker(mat2).afficher();
-
-    // Test des opérateurs surchargés externe a la classe
-        std::cout << "\n voicit le test d'égalitée de vos deux matrices : \n";
-        if (mat==mat2) { std::cout << "Vos deux matrices sont egales"; } else { std::cout << "vos deux matrices ne sont pas egales"; }
-
-        std::cout << " \n voicit le test d'inégalitée de vos deux matrices : \n";
-        if ( mat != mat2 ) { std::cout << " Vos deux matrices sont inégales"; } else { std::cout << "vos deux matrices ne sont pas inégales"; }
-
-        std::cout << " \n voicit la somme de votre premiere matrice et de la constante 3\n";
-        (mat+3).afficher();
-
-        std::cout << "\n Voicit la somme de vos deux matrices : \n";
-        Matrice k=mat+mat2;
-        k.afficher();
-
-        std::cout << "\n Vocit votre deuxiemme matrice - 2 \n";
-        (mat2-2).afficher();
-
-        std::cout << "\n voicit votre premiere matrice moins la deuxiemme \n";
-        (mat-mat2).afficher();
-
-        std::cout << " \n Voicit 3 fois votre première matrice \n";
-        (mat*3).afficher();
-
-        std::cout << " \n Voicit le produit standard de vos deux matrice \n";
-        (mat*mat2).afficher();
-
-    // Tests des surcharges d'opé suivantes interne a la classe
-        std::cout << " Ici comence les test de la deuxiemme fournée d'opérateurs";
-
-        std::cout << "\n voicit A+=3 \n";
-        (mat+=mat2).afficher();
-        
-        std::cout << "\n voicit A+=B\n";
-        (mat+=mat2).afficher();
-
-        std::cout << "\n voicit A-=3\n";
-        (mat-=3).afficher();
-    
-        std::cout << "\n voicit A-=B\n";
-        (mat-=mat2).afficher();
-
-        std::cout << "\n voicit A*=4\n";
-        (mat*=4).afficher();
-*/
-
-
 /////////////////////////////// DEBUT DU MAIN ///////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////// DEBUT DU MAIN ///////////////
@@ -203,7 +96,7 @@ int main(){
     Matrice **tab=new Matrice*[100]; // création du tableau de matrices
     int nombre=3; // le nombre de matrice en mémoire -> On a mis les 3 suivantes pour faire des tests : 
     
-    tab[0]=new MatriceCarree(2,2); tab[0]->Matriceremplie();
+    tab[0]=new MatriceCarree(2);
     tab[1]=new Matrice(3,4); tab[1]->Matriceremplie();
     tab[2]=new MatriceCarree(2,2); tab[2]->Matriceremplie();
     //tab[4]=new MatriceCarree(3); tab[4]->Matriceremplie();
@@ -290,8 +183,13 @@ int main(){
                         std::cout<<"        Entrez la dernière colone :";
                         std::cin>>l;
                         // passons au calcul proprement dit :
-                        Matrice M = tab[matrice_choisie]->sousMatrice(i-1,j-1,k-1,l-1); // les -1 vienne du fait que les humains numérote les lignes a partir de 1 et la machine a partir de 0...
-                        sauver_ou_afficher(conserver,M,tab,nombre);
+                        if ( 1<=i && j<=tab[matrice_choisie]->getM() && 1<=k && l<=tab[matrice_choisie]->getN() )
+                        {
+                            Matrice M = tab[matrice_choisie]->sousMatrice(i-1,j-1,k-1,l-1); // les -1 vienne du fait que les humains numérote les lignes a partir de 1 et la machine a partir de 0...
+                            sauver_ou_afficher(conserver,M,tab,nombre);
+                        }
+                        else { std::cout<<"Cette amtrice carré n'est pas possible"; }
+                        
                         break;
                     }
 
@@ -466,7 +364,10 @@ int main(){
                 }
                 nombre--;
                 std::cout<<"    La matrice numéro "<<matrice_choisie+1<< " a bien été supprimer\n";
-                std::cout<<"    Faite attention, les autres matrices ont été re-numérotées.\n    Essayer de les afficher pour vérifier.\n\n";
+                if ( matrice_choisie != nombre) 
+                {
+                    std::cout<<"    Faite attention, comme la amtrice supprimée n'est pas la dernière, les autres matrices ont été re-numérotée. Affichez-les pour vérifier.\n\n";   
+                }
                 break;
             }
 
@@ -481,7 +382,7 @@ int main(){
 
     }while ( ctrl !=0);
 
-    // Liberation de l'espace mémoire du new avent de quitter le programme
+    // Liberation de l'espace mémoire avent de quitter le programme
     delete tab[0];
     delete [] tab;
     return 0;

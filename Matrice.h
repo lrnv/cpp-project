@@ -2,7 +2,6 @@
 #define MATRICE_HPP
 #include <iostream>
 #include <stdlib.h>
-//#define OUTPUT_DEBUG
 
 class Matrice {
 	public: 
@@ -49,7 +48,7 @@ class Matrice {
             void soustr_mult_ligne1_a_ligne2(int const& i, int const &j,double const &x);
           
         // methodes non-valables pour les matrices non carée, mais utiles en virtual pour le polymorphisme
-            //En effet, si les méthode de la classe matricecarée ne sont pas définie ici en virtual, le tableau deointeurs indférienciés
+            //En effet, si les méthode de la classe matricecarée ne sont pas définie ici en virtual, le tableau de pointeurs indférienciés
             // sur des matrices ou des matricecaréé contiendra des matricecarrée n'ayant pas acces a ces méthodes. 
             // En contrepartie, il faudra coder ces méthodes pour la classe matrice, et leur faire renvoyer une erreur.
 
@@ -74,7 +73,8 @@ class Matrice {
             double** contenu;
 };
 
-// Les surcharges d'opérateurs : ( en dehors de la classe... ) // sont marqué d'un //* ceux qui ont été retapés.
+// Les surcharges d'opérateurs : ( en dehors de la classe... );
+    // sont marqué d'un //* ceux qui ont été retapés.
     bool operator==(Matrice const& A, Matrice const& B);
     bool operator!=(Matrice const& A, Matrice const& B);
     Matrice operator+(Matrice const& A, double const& x); //*

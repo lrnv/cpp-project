@@ -21,18 +21,6 @@
         
         // Redefinir le contructeur par copie permetra de faire un masquage interessant.
         MatriceCarree::MatriceCarree( MatriceCarree const& matrice): Matrice(matrice){} // constructeur par copie
-        /*{
-            // redefinir le constructeur par copie permetra de masquer cette operation. On pourra ainsi contruire des matricecarée via une copie de matricarrée
-            contenu= (double**)malloc(_m*sizeof(double*)); // Dans les constructeurs, on evite d'en apeller d'autres...
-            for (int i=0;i<_m;i++)
-            {
-                contenu[i]=(double*)malloc(_n*sizeof(double));
-                for (int j=0;j<_n;j++)
-                {
-                    contenu[i][j]=matrice.getValue(i,j); //remplissage...  
-                }  
-            } 
-        }*/
 
         MatriceCarree::MatriceCarree ( Matrice const& m ): Matrice(m) // Constructeur qui promeut une matrice en matricecaré.
         {
@@ -120,8 +108,17 @@
 
 		Matrice MatriceCarree::inverse_call() const
 		{
-			return this->inverse();
-		} // Cette fonction supplementaire a été mise a place quand je me suis apercut de 'limpossibilitée de passer en polymorphisme la fonction inverse : 
+			if(inversible())
+            {
+                return this->inverse();
+		    }
+            else
+            {
+                std::cout<<"Votre matrice carrée n'est pas inversible, désolé !";
+                
+
+            }
+        } // Cette fonction supplementaire a été mise a place quand je me suis apercut de 'limpossibilitée de passer en polymorphisme la fonction inverse : 
         // Comme la fonction inverse renvoit une matricecarrée, il est impossbile de la définir dans la classe matrice ( pour des raisons logique que le compilateur explique très bien : 
         // Cela reconduirais enfait a une forme de boulce infinie de classes... Ainsi, ne pouvant PAS passer ma méthode inverse() en virtual, 
         // j'ai contourner le problème en créant une fonction invers_call qui ELLE sera passer en virtual. 
@@ -312,7 +309,7 @@
                 for (int i=0;i<getM();i++)
                 {
                     // clacul de la sous matrice,
-                    MatriceCarree m(sousMatrice(0,0,i,i));
+                    MatriceCarree m(sousMatrice(0,i,0,i));
                     resultat = resultat * m.det();
                     //resultat=resultat*(sousMatrice(0,0,i,i).det());
                 }
@@ -332,7 +329,7 @@
 		} // Meme problème, meme solution. 
 
 
-        MatriceCarree MatriceCarree::cholesky() const
+        MatriceCarree MatriceCarree::cholesky() const // L'algorythme est éronné, j'ai duf aire une erreur d'indice qqpart.
         {
             // Cette méthode renvoiera la factorisation de cholesky de la matrice
             // l'algorythme a été piquer sur wikipedia :

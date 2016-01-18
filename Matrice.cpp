@@ -107,7 +107,7 @@
         void Matrice::afficher() // Affichage de la matrice
         {
             // Cette methode a pour but d'afficher la matrice, une simple double boucle 
-            // avec utilisation corecte des asseceur fera l'affaire
+            // avec utilisation corecte des assesseur fera l'affaire
             for (int i=0;i<getM();i++)
             { 
 		        for (int j=0;j<getN();j++) // parcourt sur les lignes et les colones
@@ -148,22 +148,21 @@
         {
             // Cette méthode renvois la sous-matrice comprise entre les lignes i et j et entre les colones k et l;
             // vérification de sécuritée : véifier que 0<i<j<n, que 0<k<l<m avec n et m les taille de la matrice d'orgine.
-            
-            // il nous faut donc créé une matrice de la bonne taille :
-            Matrice m=Matrice(j-i+1,l-k+1);
+                // il nous faut donc créé une matrice de la bonne taille :
+                Matrice m=Matrice(j-i+1,l-k+1);
 
-            // On a considéré ici que la sous matrice se faisait en INCLUANT les lignes i,j et les colones k,l. 
-            // D'ou les +1 qui aparaisse ci-sessus dans la declaration et ci-dessous dans les for
+                // On a considéré ici que la sous matrice se faisait en INCLUANT les lignes i,j et les colones k,l. 
+                // D'ou les +1 qui aparaisse ci-sessus dans la declaration et ci-dessous dans les for
 
-            for (int p=i;p<j+1;p++) // parcourt sur les lignes entre i et j de la matrice d'entrée
-            {
-                for (int q=k;q<l+1;q++) // parcourt sur les colones de k a l
+                for (int p=i;p<j+1;p++) // parcourt sur les lignes entre i et j de la matrice d'entrée
                 {
-                    m.setValue(p-i,q-k,getValue(p,q)); // copie de la valeur dans la nouvelle matrice.
-                    // le setValue est un accesseur de m et le getValue est un accesseur de l'objet principal.
+                    for (int q=k;q<l+1;q++) // parcourt sur les colones de k a l
+                    {
+                        m.setValue(p-i,q-k,getValue(p,q)); // copie de la valeur dans la nouvelle matrice.
+                        // le setValue est un accesseur de m et le getValue est un accesseur de l'objet principal.
+                    }
                 }
-            }
-            return m;
+                return m;
         }
 
         Matrice Matrice::transpose() const
@@ -390,7 +389,7 @@
                 Matrice m(A.getM(),B.getN());
                 
                 // Produit(i,j) = somme sur k=0 jusqu'a A.getN = B.getM, de B(i,k) * B(k,j) classiquement. Faisons donc une double boucle :
-                for (int i=0;i<A.getN();i++) { for ( int j=0;j<A.getN(); j++) {
+                for (int i=0;i<A.getM();i++) { for ( int j=0;j<B.getN(); j++) {
                     // Assignons donc a m(i,j) la valeur somme ( A(i,k) * B(k,j) );
                     int somme=0;
                     for (int k=0;k<A.getN();k++) // On fait la somme sur le nombre de ligne de A ( ou le nombre de colone de B, c'est pareil )
@@ -502,7 +501,6 @@
                 setValue(i,k,getValue(j,k));
                 setValue(j,k,ligne_de_passage[k]);
             }
-            // et voila, ça devrais suffir !!
 
         }
         

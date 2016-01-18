@@ -25,7 +25,7 @@ class MatriceCarree:public Matrice {
             bool positive() const;
 
         // Factorisation de cholesky :
-            Matrice cholesky_call() const;
+            Matrice cholesky_call() const; // idem que inverse_call.
             MatriceCarree cholesky() const;
         
         // Determinant :
