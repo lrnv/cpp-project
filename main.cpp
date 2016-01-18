@@ -129,7 +129,7 @@ int main(){
              // un peu de mise en forme :
             std::cout<<"\n\n******************************************************************************************************************************************\n******************************************************* MENU PRINCIPAL *******************************************************************\n******************************************************************************************************************************************\n\n";
 
-            std::cout<<"Vous avez "<<nombre<<" matrices en mémoire. Voicit les actions a votre disposition :\n\n    1 - Afficher les matrices disponibles\n    2 - Créer une matrice.\n    3 - Calculer des choses avec vos matrices\n    4 - Afficher diverses propriétées d'une matrice\n    5 - Supprimer une matrice\n    0 - Quitter le programme\n\n Votre choix : ";
+            std::cout<<"Vous avez "<<nombre<<" matrices en mémoire. Voicit les actions a votre disposition :\n\n    1 - Afficher les matrices disponibles\n    2 - Créer une matrice.\n    3 - Faire differents calculs avec vos matrices\n    4 - Afficher diverses propriétées d'une matrice\n    5 - Supprimer une matrice\n    0 - Quitter le programme\n\n Votre choix : ";
             std::cin>>ctrl;
             std::cout<<"\n\n";
 
