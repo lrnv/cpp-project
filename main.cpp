@@ -366,7 +366,7 @@ int main(){
                 std::cout<<"    La matrice numéro "<<matrice_choisie+1<< " a bien été supprimer\n";
                 if ( matrice_choisie != nombre) 
                 {
-                    std::cout<<"    Faite attention, comme la amtrice supprimée n'est pas la dernière, les autres matrices ont été re-numérotée. Affichez-les pour vérifier.\n\n";   
+                    std::cout<<"    Faite attention, comme la matrice supprimée n'est pas la dernière, les autres matrices ont été re-numérotée. Affichez-les pour vérifier.\n\n";   
                 }
                 break;
             }

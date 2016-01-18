@@ -328,65 +328,66 @@
 			return this->cholesky();
 		} // Meme problème, meme solution. 
 
-
-        MatriceCarree MatriceCarree::cholesky() const // L'algorythme est éronné, j'ai duf aire une erreur d'indice qqpart.
+        MatriceCarree MatriceCarree::cholesky() const // Encore a tester !
         {
-            // Cette méthode renvoiera la factorisation de cholesky de la matrice
-            // l'algorythme a été piquer sur wikipedia :
-            if ( positive() ) // si la matrice est symetrique définie positive
+            // Cette méthode renvoit la factorisation de cholesky d'une matrice définie-positive. Commençons pas verifier cette condition :
+            if ( !positive() )
             {
-                    MatriceCarree L(getN(),0); // Créons la pleine de zero
-                    
-                    // Commençons par la 1ere valeur : 
-                    double valeur=sqrt(getValue(0,0));
-                    L.setValue(0,0,valeur);
+                std::cout"Vous essayez de cacluler la factorisation de cholesky d'une matrice carrée non-définie-positive ! Chepanan ;)";
+                exit(EXIT_FAILURE);
+            }
+            else // On peut donc calculer cholesky, si elle est DP 
+            {
+                // L'algorythme a été piquer sur wikipedia. La racine carrée nous a forcer a utiliser la bibliotheque cmath...
 
-                    // la suite de la 1ere colone : 
-
-                    for (int j=1;j<getN();j++)
+                MatriceCarree L(getN());
+    
+                for(int i = 0; i < getN(); i++)
+                {
+                    for(int j = 0; j < getN(); j++)
                     {
-                        valeur= getValue(0,j) / L.getValue(0,0);
-                        L.setValue(0,j,valeur);
+                        L.setValue(i,j,0);
+                    }
+                }
+                
+                // 1 ere valeur :
+                L.setvalue(0,0,sqrt(getValue(0,0));
+    
+                // 1 ere colone :
+                for(int i=1; i<getN(); i++)
+                {
+                    L.setValue(i,0,(getValue(0,i)/L.getValue(0,0));
+                }
+    
+                int somme=0;
+                int somme2=0;
+
+                for(int i=1; i<getN(); i++)
+                {
+                    // Calcul de la somme :
+                    for (int k=0; k<i; k++)
+                    {
+                        somme += L.getValue(i,k)*L.getValue(i,k);
+                    }
+                    // Affectation : 
+                    L.setValue(i,i,(sqrt(getValue(i,i)-somme)));
+                    somme=0;
+                
+                    // Récursivement, les colones suivantes : 
+                    for(int j=i+1; j<getN(); j++)
+                    {
+                        for (int k=0; k<i; k++)
+                        {
+                            somme2 += L.getValue(i,k)*L.getValue(j,k);
+                        }
+                        L.setValue(j,i,((getValue(i,j) - somme2) / L.getValue(i,i)));
+                        somme2=0;
                     }
 
-                    // Passons maintenant a la récursivitée pour les collones suivantes : 
+                }
+                return L;
 
-                    for (int i=1;i<getN();i++)
-                    {
-                        double somme=0;
-                        // pour j=i :
-                        //valeur = sqrt(getValue(i,i)- Li,1 carré - ... - Li,i-1 carré
-                        for (int k=0;k<i-1;k++)
-                        {
-                            somme+=(L.getValue(i,k)*L.getValue(i,k));
-                        }
-                        valeur = sqrt(getValue(i,i)-somme);
-                        L.setValue(i,i,valeur);
-
-                        // pour j>i :
-                        for (int j=i+1;j<getN();j++)
-                        {
-                            somme=0;
-                            // meme délire :
-                            // valeur = getValue(i,i+1)- Li,1 * Li+1,1 - ... - Li,i-1*Li+1,i-1 le tout divisé par Li,i
-                            for (int k=0;k<i;k++ )
-                            {
-                                somme +=( L.getValue(i,k) * L.getValue(j,k) );
-                            }
-                            valeur = ( getValue(i,j) - somme ) / L.getValue(i,i);
-
-                            L.setValue(i,j,valeur);
-                        }
-                    }
-                    return L;
-            }
-            else
-            {
-                // La factorisation de cholesky d'une matrice non-définie-positive n'existe pas.
-                std::cout<<"Vous essayez de calculer la factorisation de cholesky d'une matrice carrée non-définie-positive !";
-
-            }
-
+            } 
         }
 
 
