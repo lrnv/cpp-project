@@ -333,12 +333,13 @@
             // Cette méthode renvoit la factorisation de cholesky d'une matrice définie-positive. Commençons pas verifier cette condition :
             if ( !positive() )
             {
-                std::cout"Vous essayez de cacluler la factorisation de cholesky d'une matrice carrée non-définie-positive ! Chepanan ;)";
+                std::cout<<"Vous essayez de cacluler la factorisation de cholesky d'une matrice carrée non-définie-positive ! Chepanan ;)";
                 exit(EXIT_FAILURE);
             }
             else // On peut donc calculer cholesky, si elle est DP 
             {
-                // L'algorythme a été piquer sur wikipedia. La racine carrée nous a forcer a utiliser la bibliotheque cmath...
+                // L'algorythme a été piquer sur wikipedia. 
+                // N'ayant pas trouver d'algo sans la racine carrée, j'ai été obliger d'utiliser la biblio cmath.
 
                 MatriceCarree L(getN());
     
@@ -351,12 +352,12 @@
                 }
                 
                 // 1 ere valeur :
-                L.setvalue(0,0,sqrt(getValue(0,0));
+                L.setValue(0,0,sqrt(getValue(0,0)));
     
                 // 1 ere colone :
                 for(int i=1; i<getN(); i++)
                 {
-                    L.setValue(i,0,(getValue(0,i)/L.getValue(0,0));
+                    L.setValue(i,0,(getValue(0,i)/L.getValue(0,0)));
                 }
     
                 int somme=0;
@@ -370,8 +371,9 @@
                         somme += L.getValue(i,k)*L.getValue(i,k);
                     }
                     // Affectation : 
-                    L.setValue(i,i,(sqrt(getValue(i,i)-somme)));
-                    somme=0;
+                    L.setValue(i,i,(sqrt(getValue(i,i)-somme))); // la fameuse racine carrée ;)
+                    
+                    somme=0; // Si on ne réitialise pas la somme, on se retrouve avec des valeur abérente car la variable est la meme a chaque passage de la boucle for...
                 
                     // Récursivement, les colones suivantes : 
                     for(int j=i+1; j<getN(); j++)
@@ -381,7 +383,7 @@
                             somme2 += L.getValue(i,k)*L.getValue(j,k);
                         }
                         L.setValue(j,i,((getValue(i,j) - somme2) / L.getValue(i,i)));
-                        somme2=0;
+                        somme2=0; // Idem que pour somme1, on réinitalise la somme.
                     }
 
                 }

@@ -13,6 +13,14 @@
 int choix_matrice(int nombre){
     // Cette fonction, bien que simpliste, est très utile pour le main.
     // Elle permet juste de choisir une matrice parmis les matrices disponibles.
+    if ( nombre==1 )
+    {
+        std::cout<<"Comme il n'y a qu'une matrice en mémoire, elle a été selectionée par déffaut.\n";
+        return 0; // S'il n'y a qu'une seule matrice, on la choisie sans rien demander
+    }
+    
+    // le cas ou aucune matrice n'est en mémoire n'arivera pas, on a fais ce qu'il faut au debut du main.
+
     int choix;
     std::cout<<"Pour choisir une matrice, entrez un nombre entre 1 et "<<nombre<<" : ";
     std::cin>>choix;
@@ -109,13 +117,32 @@ int main(){
 
     std::cout<<"Bienvenue dans ce gestionaire de matrices.\n\n\n";
     do {
-        // un peu de mise en forme :
-        std::cout<<"\n\n******************************************************************************************************************************************\n******************************************************* MENU PRINCIPAL *******************************************************************\n******************************************************************************************************************************************\n\n";
+        
+        // Avent d'afficher le menu, testons bien qu'il y a une matrice en mémoire :
+        if ( nombre == 0 )
+        {
+            std::cout<<"Vous n'avez aucune matrice en mémoire ! Veuillez en créer une.\n\n";
+            ctrl = 2; // on saute directement a la création de matrice...
+        }
+        else // S'il y a une matrice en mémoire, on affiche le menu standard.
+        {
+             // un peu de mise en forme :
+            std::cout<<"\n\n******************************************************************************************************************************************\n******************************************************* MENU PRINCIPAL *******************************************************************\n******************************************************************************************************************************************\n\n";
 
-        std::cout<<"Vous avez "<<nombre<<" matrices en mémoire. Voicit les actions a votre disposition :\n\n    1 - Afficher les matrices disponibles\n    2 - Créer une matrice.\n    3 - Calculer des choses avec vos matrices\n    4 - Afficher diverses propriétées d'une matrice\n    5 - Supprimer une matrice\n    0 - Quitter le programme\n\n Votre choix : ";
-        std::cin>>ctrl;
-        std::cout<<"\n\n";
+            std::cout<<"Vous avez "<<nombre<<" matrices en mémoire. Voicit les actions a votre disposition :\n\n    1 - Afficher les matrices disponibles\n    2 - Créer une matrice.\n    3 - Calculer des choses avec vos matrices\n    4 - Afficher diverses propriétées d'une matrice\n    5 - Supprimer une matrice\n    0 - Quitter le programme\n\n Votre choix : ";
+            std::cin>>ctrl;
+            std::cout<<"\n\n";
 
+        }
+        
+        
+        // grace a cette vérification, on est sur que le choix_matrice aura toujours un nombre de matrice d'au moins 1. 
+        // En effet, s'il n'y a pas de matrice en mémoire, le menu n'est meme pas afficher et l'utilisateur ne peut rien faire d'autre qu'en créer une de gré ou de force.
+        
+        
+        
+        
+       
         switch ( ctrl )
         {
             case 1: // Afficher les matrices disponibles : DONE
@@ -124,7 +151,7 @@ int main(){
 
                 if ( nombre == 0 )
                 {
-                    std::cout<< " Vous n'avez aucunes matrice en mémoire ! Créez-en une avent d'essayer de l'afficher ;)";
+                    std::cout<< "\nVous n'avez aucunes matrice en mémoire ! Créez-en une avent d'essayer de l'afficher ;)";
                 }
                 else
                 {
@@ -296,11 +323,12 @@ int main(){
                     {
                         sauver_ou_afficher(conserver,tab[matrice_choisie]->cholesky_call(),tab,nombre);
                         // la fonction cholesky_call repond au meme besoin que la fonction inverse_call.
+                        break;
                     }
 
                     case 0: // Retour au menu principal : DONE
                     {
-                        
+                        break;
                     }
 
                     default :{}
