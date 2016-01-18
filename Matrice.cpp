@@ -391,7 +391,7 @@
                 // Produit(i,j) = somme sur k=0 jusqu'a A.getN = B.getM, de B(i,k) * B(k,j) classiquement. Faisons donc une double boucle :
                 for (int i=0;i<A.getM();i++) { for ( int j=0;j<B.getN(); j++) {
                     // Assignons donc a m(i,j) la valeur somme ( A(i,k) * B(k,j) );
-                    int somme=0;
+                    double somme=0;
                     for (int k=0;k<A.getN();k++) // On fait la somme sur le nombre de ligne de A ( ou le nombre de colone de B, c'est pareil )
                     {
                         somme+=(A.getValue(i,k))*(B.getValue(k,j));
